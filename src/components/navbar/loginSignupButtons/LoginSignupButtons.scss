@@ -1,0 +1,31 @@
+#nav-login-signup-btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  button {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+
+    &#nav-login-btn {
+      background-color: #f44336;
+
+      &:hover {
+        background-color: #da190b;
+      }
+    }
+  
+    &#nav-signup-btn {
+      background-color: #4caf50;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+  }
+}

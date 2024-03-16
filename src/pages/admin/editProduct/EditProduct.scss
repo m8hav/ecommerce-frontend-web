@@ -1,0 +1,70 @@
+#admin-product-editing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  height: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    td {
+      border: 1px solid #e0e0e0;
+      padding: 10px;
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  #edit-product-action-btns {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    button {
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &#save-product-changes-btn {
+        background-color: #4caf50;
+        margin-right: 10px;
+
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+
+      &#delete-product-btn {
+        background-color: #f44336;
+
+        &:hover {
+          background-color: #da190b;
+        }
+      }
+    }
+  }
+
+}
