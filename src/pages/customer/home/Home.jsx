@@ -1,18 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeCarousel from '../../../components/homeCaroursel/HomeCarousel'
-import ProductItem from '../../../components/productItem/ProductItem'
+import ProductCard from '../../../components/productCard/ProductCard'
 import "./Home.scss"
+import { getAllProducts } from '../../../utils/apis/ProductAPIHandlers'
 
 function Home() {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const fetchAllProducts = async () => {
+      const response = await getAllProducts();
+      setProducts(response);
+    }
+    fetchAllProducts();
+  }, [])
+
   return (
     <>
       <HomeCarousel />
       <div id='home-popular-products'>
-        <p id='home-popular-products-heading'>Popular Products</p>
+        <h1 id='home-popular-products-heading'>Popular Products</h1>
         <div>
           {
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((product, index) =>
-              <ProductItem imgUrl={"https://picsum.photos/300/300"} key={index} pid={index} name={"Shampoo"} desc="Good Shampoo" price="200" />
+            products.map((product, index) =>
+              <ProductCard
+                imageUrl={product.imageUrl}
+                key={index}
+                pid={product.id}
+                name={product.name}
+                desc={product.description}
+                price={product.price} />
             )
           }
         </div>

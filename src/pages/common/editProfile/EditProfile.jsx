@@ -1,15 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import "./EditProfile.scss"
+import { getUser, updateUser } from '../../../utils/apis/UserAPIHandlers';
+import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
 
-  const [userName, setUserName] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
+  const [name, setName] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setUserName("Madhav Goyal");
-    setUserEmail("madhav@gmail.com");
+    console.log('fetching user details for editing')
+
+    const fetchUserDetails = async () => {
+      const user = await getUser();
+      setName(user.name || "");
+    }
+
+    fetchUserDetails();
   }, []);
+
+  const saveProfileChanges = async (e) => {
+    e.preventDefault();
+    console.log('updating user details')
+
+    // Update user details
+    try {
+      const res = await updateUser({ name: name });
+      console.log(res);
+      navigate('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div id='edit-profile-page-container'>
@@ -19,15 +42,11 @@ function EditProfile() {
           <tbody>
             <tr>
               <td><label htmlFor='edit-profile-name'>Name</label></td>
-              <td><input type='text' id='edit-profile-name' value={userName} onChange={e => setUserName(e.target.value)} /></td>
-            </tr>
-            <tr>
-              <td><label htmlFor='edit-profile-email'>Email</label></td>
-              <td><input type='email' id='edit-profile-email' value={userEmail} onChange={e => setUserEmail(e.target.value)} /></td>
+              <td><input type='text' id='edit-profile-name' value={name} onChange={e => setName(e.target.value)} /></td>
             </tr>
             <tr>
               <td></td>
-              <td><button id='edit-profile-submit'>Save</button></td>
+              <td><button id='profile-edit-submit-btn' onClick={e => saveProfileChanges(e)}>Save</button></td>
             </tr>
           </tbody>
         </table>

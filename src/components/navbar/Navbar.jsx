@@ -25,7 +25,7 @@ function Navbar() {
           : <>
             <ProfileIcon />
             {
-              !(currentUser.admin) &&
+              currentUser.role == "USER" &&
               <Link to={"/cart"}>
                 <div id="nav-cart-btn">
                   <i className="fa-solid fa-cart-shopping"></i>

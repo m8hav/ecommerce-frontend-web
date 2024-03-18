@@ -14,7 +14,7 @@ function UserRouter() {
 
   return (
     <ProtectedRoute>
-      {user?.admin == true ? <AdminRouter /> : <CustomerRouter />}
+      {user?.role == "ADMIN" ? <AdminRouter /> : <CustomerRouter />}
     </ProtectedRoute>
   )
 }

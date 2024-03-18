@@ -1,43 +1,67 @@
 import React, { useEffect, useState } from 'react'
 import "./CartProductItem.scss"
 import { Link } from 'react-router-dom';
+import { removeFromCart, updateProductQuantityInCart } from '../../utils/apis/CartAPIHandlers';
 
-function CartProductItem({ productId }) {
+function CartProductItem({ cartProduct, updateCart }) {
 
-  const [product, setProduct] = useState(null);
+  const increaseQuantity = async () => {
+    console.log('increasing quantity')
+    try {
+      await updateProductQuantityInCart({ productId: cartProduct.productId, quantity: cartProduct.quantity + 1 });
+      updateCart();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  useEffect(() => {
-    // Fetch product details from the server
-    // fetch(`http://localhost:8080/products/${productId}`)
-    //   .then(response => response.json())
-    //   .then(data => setProduct(data))
-    //   .catch(error => console.log(error));
-  }, [])
+  const decreaseQuantity = async () => {
+    console.log('decreasing quantity')
+    try {
+      await updateProductQuantityInCart({ productId: cartProduct.productId, quantity: cartProduct.quantity - 1 });
+      updateCart();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const removeProduct = async () => {
+    console.log('removing product')
+    try {
+      await removeFromCart(cartProduct.productId);
+      updateCart();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className='cart-product-item'>
-      <Link to={`/product/${productId}`}>
+      <Link to={`/product/${cartProduct.productId}`}>
         <div className="cart-product-item-info">
           <div className="cart-product-item-img-container">
-            <img src="https://picsum.photos/300/300" alt="Product" />
+            <img src={cartProduct?.imageUrl} alt="Product" />
           </div>
           <div className='cart-product-item-details'>
-            <p className='cart-product-item-name'>Shampoo</p>
-            <p className='cart-product-item-desc'>{"Very good shampoo. Please buy :') asdlfkasldfj"}</p>
-            <p className='cart-product-item-price'>${300}</p>
+            <p className='cart-product-item-name'>{cartProduct?.name}</p>
+            <p className='cart-product-item-desc'>{cartProduct?.description}</p>
+            <p className='cart-product-item-price'>${cartProduct?.price}</p>
           </div>
         </div>
       </Link>
       <div className='cart-product-item-cta'>
         <p className="cart-product-item-qty-heading">Quantity</p>
         <div className="cart-product-item-qty-btns">
-          <button className='cart-product-item-qty-btn'>-</button>
-          <p className='cart-product-item-qty'>1</p>
-          <button className='cart-product-item-qty-btn'>+</button>
+          <button className='cart-product-item-qty-btn' onClick={decreaseQuantity}>-</button>
+          <p className='cart-product-item-qty'>{cartProduct?.quantity}</p>
+          <button className='cart-product-item-qty-btn' onClick={increaseQuantity}>+</button>
         </div>
+        <button className='cart-product-item-remove-btn' onClick={removeProduct}>
+          <i className="fa-solid fa-trash"></i>
+        </button>
       </div>
     </div>
   )
 }
 
-export default CartProductItem
+export default CartProductItem;

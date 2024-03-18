@@ -2,18 +2,40 @@ import React, { useEffect, useState } from 'react'
 import "./Cart.scss"
 import CartProductItem from '../../../components/cartProductItem/CartProductItem'
 import { Link } from 'react-router-dom';
+import { clearCart, getCart } from '../../../utils/apis/CartAPIHandlers';
 
 function Cart() {
 
-  const [productIds, setProductIds] = useState([]);
+  const [cart, setCart] = useState(null);
+  const [change, setChange] = useState(false);
+
+  const updateCart = () => {
+    setChange(!change);
+  }
 
   useEffect(() => {
-    // Fetch products from the server
-    // fetch('http://localhost:8080/cart/products')
-    //   .then(response => response.json())
-    //   .then(data => setProductIds(data))
-    //   .catch(error => console.log(error));
-  }, [])
+    console.log('fetching cart details')
+
+    const fetchCartDetails = async () => {
+      // fetch cart details
+      try {
+        const res = await getCart();
+        setCart(res);
+      } catch (error) {
+        console.log("User has no cart")
+      }
+    }
+    fetchCartDetails();
+  }, [change])
+
+  const emptyCart = async () => {
+    try {
+      await clearCart();
+      updateCart();
+    } catch (error) {
+      console.log("Error clearing cart")
+    }
+  }
 
   return (
     <div id='cart-container'>
@@ -21,8 +43,12 @@ function Cart() {
       <div id="cart-main">
         <div id='cart-items-container'>
           {
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>
-              <CartProductItem key={index} productId={item} />
+            !(cart && cart.cartProducts && cart.cartProducts.length) &&
+            <p id='cart-empty-msg'>Your cart is empty</p>
+          }
+          {
+            cart?.cartProducts && cart.cartProducts.map((item, index) =>
+              <CartProductItem key={index} cartProduct={item} updateCart={updateCart} />
             )
           }
         </div>
@@ -31,13 +57,14 @@ function Cart() {
             <p id='cart-total-heading'>Total</p>
             <span id='cart-total-price'>
               <p>Cart Total</p>
-              <p>${"20,000"}</p>
+              <p>${cart?.total || 0}</p>
             </span>
           </div>
           <hr />
           <Link to={"/checkout"}>
-            <button id='cart-checkout-btn'>Checkout</button>
+            <button id='cart-checkout-btn' disabled={!(cart && cart.cartProducts && cart.cartProducts.length)}>Checkout</button>
           </Link>
+          <button id='clear-cart-btn' onClick={emptyCart} disabled={!(cart && cart.cartProducts && cart.cartProducts.length)}>Clear Cart</button>
         </div>
       </div>
     </div>

@@ -1,17 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./AddProduct.scss"
 import { useNavigate } from 'react-router-dom'
+import { addProduct } from '../../../utils/apis/ProductAPIHandlers';
 
 function AddProduct() {
 
   const navigate = useNavigate();
-  
-  const handleAddProduct = () => {
-    console.log('adding product')
 
-    navigate('/');
+  const [error, setError] = useState(null);
+
+  const handleAddProduct = () => {
+    console.log("adding product")
+
+    const name = document.getElementById('name').value;
+    const desc = document.getElementById('desc').value;
+    const price = document.getElementById('price').value;
+    const imageUrl = document.getElementById('imageUrl').value;
+    const stock = document.getElementById('stock').value;
+
+    console.log(name, desc, price, imageUrl, stock);
+
+    const addProductAsync = async (product) => {
+      try {
+        const res = await addProduct(product);
+        console.log("Product added successfully", res);
+        navigate('/');
+      } catch (error) {
+        console.log("Error adding product", error);
+        setError("Error adding product");
+      }
+    }
+    const product = {
+      name,
+      description: desc,
+      price,
+      imageUrl,
+      stock
+    };
+
+    addProductAsync(product);
   }
-  
+
   return (
     <div id='admin-product-add-page'>
       <h1>Add Product</h1>
@@ -38,15 +67,23 @@ function AddProduct() {
               <label htmlFor="price">Price:</label>
             </td>
             <td>
-              <input type="text" id="price" name="price" />
+              <input type="number" id="price" name="price" />
             </td>
           </tr>
           <tr>
             <td>
-              <label htmlFor="imgUrl">Image URL:</label>
+              <label htmlFor="imageUrl">Image URL:</label>
             </td>
             <td>
-              <input type="text" id="imgUrl" name="imgUrl" />
+              <input type="text" id="imageUrl" name="imageUrl" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label htmlFor="stock">Stock:</label>
+            </td>
+            <td>
+              <input type="number" id="stock" name="stock" />
             </td>
           </tr>
           <tr>
@@ -58,6 +95,7 @@ function AddProduct() {
           </tr>
         </tbody>
       </table>
+      <p>{error}</p>
     </div>
   )
 }

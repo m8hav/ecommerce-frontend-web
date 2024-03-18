@@ -3,11 +3,11 @@ import "./Signup.scss"
 import { useNavigate } from 'react-router-dom';
 import { getUserDetails } from '../../../utils/AuthUtils';
 import { AuthContext } from '../../../contexts/AuthContext';
+import { signUp } from '../../../utils/apis/AuthAPIHandlers';
 
 function Signup() {
 
   const currentUser = getUserDetails();
-  const { setCurrentUser } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +15,8 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [error, setError] = useState("");
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +25,35 @@ function Signup() {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log(name, email, password, confirmPassword);
+
+    if (name === "" || email === "" || password === "" || confirmPassword === "") {
+      setError("All fields are required");
+      return;
+    }
+
+    // regex validation of email
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailRegex.test(email)) {
+      setError("Invalid email");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+
+    console.log("Signing up with name: " + name + " email: " + email + " and password: " + password);
+    setError("");
+    
+    const user = signUp({ name, email, password });
+    console.log(user);
+    
     navigate('/login')
   }
 
@@ -56,6 +86,7 @@ function Signup() {
           </tbody>
         </table>
       </form>
+      <p id='signup-error'>{error}</p>
     </div>
   )
 }

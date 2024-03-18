@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./AdminHome.scss"
-import ProductItem from '../../../components/productItem/ProductItem'
+import ProductCard from '../../../components/productCard/ProductCard'
 import { Link } from 'react-router-dom'
+import { getAllProducts } from '../../../utils/apis/ProductAPIHandlers'
+
 
 function AdminHome() {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const fetchAllProducts = async () => {
+      const response = await getAllProducts();
+      setProducts(response);
+    }
+    fetchAllProducts();
+  }, [])
+
   return (
     <div id='admin-home-page'>
       <h1>Available Products</h1>
@@ -11,11 +25,17 @@ function AdminHome() {
         <button id='add-product-btn'>Add Product</button>
       </Link>
       <div>
-        {
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((product, index) =>
-            <ProductItem imgUrl={"https://picsum.photos/300/300"} key={index} pid={index} name={"Shampoo"} desc="Good Shampoo" price="200" />
-          )
-        }
+          {
+            products.map((product, index) =>
+              <ProductCard
+                imageUrl={product.imageUrl}
+                key={index}
+                pid={product.id}
+                name={product.name}
+                desc={product.description}
+                price={product.price} />
+            )
+          }
       </div>
     </div>
   )

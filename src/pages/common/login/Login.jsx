@@ -3,38 +3,41 @@ import "./Login.scss"
 import { getUserDetails, saveUserDetails } from "../../../utils/AuthUtils"
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
+import { logIn } from '../../../utils/apis/AuthAPIHandlers';
 
 function Login() {
 
   const currentUser = getUserDetails();
   const { setCurrentUser } = useContext(AuthContext);
-  const [errMsg, setErrMsg] = useState("");
+  const [error, setErrMsg] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUser?.token) navigate('/');
-  }, [])
+  }, []);
+
+  
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // request to server to log in
-    // receive a token
+    if (email === "" || password === "") {
+      setErrMsg("Email and Password are required");
+      return;
+    }
 
-    const token = "test123";
-    const admin = false;
-    
-    const userInfo = { token, admin };
-    
-    saveUserDetails(userInfo);
-    setCurrentUser(userInfo);
-    navigate('/');
-    
-    console.log("Logging in with email: " + email + " and password: " + password);
+    try {
+      const res = await logIn({ email, password });
+      saveUserDetails(res);
+      setCurrentUser(res);
+      navigate('/');
+    } catch (error) {
+      setErrMsg("Invalid email or password");
+    }
   }
 
   return (
@@ -48,7 +51,7 @@ function Login() {
               <td><input type='email' id='login-email' value={email} onChange={e => setEmail(e.target.value)} /></td>
             </tr>
             <tr>
-              <td><label htmlFor='login-password-input'>Enter New Password</label></td>
+              <td><label htmlFor='login-password-input'>Enter Password</label></td>
               <td><input type='password' id='login-password-input' value={password} onChange={e => setPassword(e.target.value)} /></td>
             </tr>
             <tr>
@@ -58,6 +61,7 @@ function Login() {
           </tbody>
         </table>
       </form>
+      <p id='login-error-message'>{error}</p>
     </div>
   )
 }

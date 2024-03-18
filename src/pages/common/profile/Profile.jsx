@@ -1,12 +1,27 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./Profile.scss"
 import { Link } from 'react-router-dom'
-import { getUserDetails } from '../../../utils/AuthUtils'
 import { AuthContext } from '../../../contexts/AuthContext'
+import { getUser } from '../../../utils/apis/UserAPIHandlers'
 
 function Profile() {
 
   const { currentUser } = useContext(AuthContext);
+
+  const [user, setUser] = useState({});
+
+  const fetchUserDetails = async () => {
+    try {
+      const res = await getUser(currentUser.id);
+      setUser(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, [])
 
   return (
     <div id='profile-page-container'>
@@ -19,11 +34,11 @@ function Profile() {
             <tbody>
               <tr>
                 <td>Name:</td>
-                <td id='profile-info-name'>Madhav Goyal</td>
+                <td id='profile-info-name'>{user.name}</td>
               </tr>
               <tr>
                 <td>Email:</td>
-                <td id='profile-info-email'>madhav@gmail.com</td>
+                <td id='profile-info-email'>{user.email}</td>
               </tr>
             </tbody>
           </table>
@@ -33,7 +48,7 @@ function Profile() {
           <h2>Options</h2>
           <div id="profile-options-btns">
             {
-              !(currentUser.admin) &&
+              currentUser.role == "USER" &&
               <Link to="/orders">
                 <button>View Orders</button>
               </Link>

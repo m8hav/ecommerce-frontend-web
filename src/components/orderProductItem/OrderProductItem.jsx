@@ -7,11 +7,7 @@ function OrderProductItem({ productId }) {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    // Fetch product details from the server
-    // fetch(`http://localhost:8080/products/${productId}`)
-    //   .then(response => response.json())
-    //   .then(data => setProduct(data))
-    //   .catch(error => console.log(error));
+    
   }, [])
 
   return (

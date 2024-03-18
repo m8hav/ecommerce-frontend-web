@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   gap: 2px;
 
@@ -12,8 +13,22 @@
     margin-left: 1rem;
   }
 
-  h3 {
-    font-size: small;
-    margin-left: 0.5rem;
+  button {
+    background-color: #0044aa;
+    color: white;
+    border-radius: 50%;
+    padding: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #003366;
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 0.75rem;
   }
 }

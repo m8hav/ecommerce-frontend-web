@@ -13,6 +13,7 @@
     justify-content: space-around;
     align-items: flex-start;
     position: relative;
+    flex-wrap: wrap;
     gap: 2rem;
     overflow: scroll;
 
@@ -44,10 +45,6 @@
       margin-bottom: 20px;
       background-color: #fff;
 
-      // hr {
-      //   margin: 1rem 0;
-      // }
-
       #cart-total-container {
         #cart-total-heading {
           font-size: 1.5rem;
@@ -76,7 +73,37 @@
         &:hover {
           background-color: #e0b030;
         }
+
+        &:disabled {
+          background-color: #ebd374;
+          color: white;
+          cursor: not-allowed;
+        }
       }
+
+      #clear-cart-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.25rem;
+        background-color: #e04040;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        margin-top: 1rem;
+
+        &:hover {
+          background-color: #e03030;
+        }
+
+        &:disabled {
+          background-color: #f0abab;
+          cursor: not-allowed;
+        }
+
+      }
+      
     }
   }
 }

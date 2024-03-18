@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import "./Order.scss"
-import OrderProductItem from '../../../components/orderProductItem/OrderProductItem';
+import StaticProductItem from '../../../components/staticProductItem/StaticProductItem';
 import { useParams } from 'react-router-dom';
+import { getOrder } from '../../../utils/apis/OrderAPIHandlers'
 
 function Order() {
 
-  const [productIds, setProductIds] = useState([]);
+  const [order, setOrder] = useState({});
 
   const { oid } = useParams();
 
   useEffect(() => {
-    // Fetch products from the server
-    // fetch('http://localhost:8080/order/products')
-    //   .then(response => response.json())
-    //   .then(data => setProductIds(data))
-    //   .catch(error => console.log(error));
+    // Fetch order details from server
+    const fetchOrder = async () => {
+      try {
+        const res = await getOrder(oid);
+        setOrder(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchOrder();
   }, [])
 
   return (
@@ -27,8 +33,8 @@ function Order() {
         <div id='order-items-container'>
           <h2 id='order-items-heading'>Order Items</h2>
           {
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>
-              <OrderProductItem key={index} productId={item} />
+            order?.orderProducts && order.orderProducts.map((item, index) =>
+              <StaticProductItem key={index} product={item} linkToProduct={true} />
             )
           }
         </div>
@@ -37,20 +43,20 @@ function Order() {
             <p id='order-total-heading'>Total</p>
             <span id='order-total-price'>
               <p>Order Total</p>
-              <p>${"20,000"}</p>
+              <p>${order.total}</p>
             </span>
           </div>
           <hr />
           <div id="order-address-info">
             <p id='order-address-heading'>Shipping Address</p>
-            <p id='order-address-details'>Nalagarh, Himachal Pradesh</p>
+            <p id='order-address-details'>{order.address}</p>
           </div>
           <hr />
           <div id="order-payment-info">
-            <p id='order-payment-heading'>Payment</p>
+            <p id='order-payment-heading'>Payment Method</p>
             <div id="order-payment-options">
               <label className='order-payment-option-label'>
-                <p>{"COD (Cash on Delivery)"}</p>
+                <p>{order.paymentMethod}</p>
               </label>
             </div>
           </div>

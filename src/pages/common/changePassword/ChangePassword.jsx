@@ -1,18 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import "./ChangePassword.scss"
+import { updateUser } from '../../../utils/apis/UserAPIHandlers';
+import { useNavigate } from 'react-router-dom';
 
 function ChangePassword() {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleChangePassword = (e) => {
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleChangePassword = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
+      setError(null);
+      // Update user details
+      try {
+        const res = await updateUser({ password });
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
       console.log("Password changed successfully");
+      navigate("/profile");
     }
     else {
       console.log("Passwords do not match");
+      setError("Passwords do not match");
     }
   }
 
@@ -37,6 +53,9 @@ function ChangePassword() {
           </tbody>
         </table>
       </form>
+      <p className="error-message" id="change-password-error-message">
+        {error}
+      </p>
     </div>
   )
 }

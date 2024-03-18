@@ -93,5 +93,20 @@
         border-radius: 0.25rem;
       }
     }
+    .cart-product-item-remove-btn {
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+      background-color: #e04040;
+      color: white;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        // dark red background on hover
+        background-color: #e03030;
+      }
+    }
   }
 }
