@@ -55,7 +55,18 @@ function Cart() {
         <div id="cart-right-portion">
           <div id='cart-total-container'>
             <p id='cart-total-heading'>Total</p>
-            <span id='cart-total-price'>
+            <div id="cart-items-totals-container">
+              {
+                cart?.cartProducts &&
+                cart.cartProducts.map((item, index) =>
+                  <span key={index} className="cart-info-span small-text">
+                    <p>{item.name}</p>
+                    <p>${item.price * item.quantity}</p>
+                  </span>
+                )
+              }
+            </div>
+            <span className='cart-info-span'>
               <p>Cart Total</p>
               <p>${cart?.total || 0}</p>
             </span>

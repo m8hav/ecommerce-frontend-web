@@ -3,7 +3,6 @@ import './Navbar.scss'
 import SearchBar from '../searchBar/SearchBar'
 import { Link } from 'react-router-dom'
 import ProfileIcon from './profileIcon/ProfileIcon'
-import { getUserDetails } from '../../utils/AuthUtils'
 import LoginSignupButtons from './loginSignupButtons/LoginSignupButtons'
 import { AuthContext } from '../../contexts/AuthContext'
 

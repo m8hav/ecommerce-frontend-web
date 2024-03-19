@@ -52,11 +52,16 @@
           font-weight: 700;
         }
 
-        #cart-total-price {
+        .cart-info-span {
           font-size: 1.25rem;
           margin-bottom: 1rem;
           display: flex;
           justify-content: space-between;
+        }
+
+        .small-text {
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
         }
       }
 
@@ -103,7 +108,7 @@
         }
 
       }
-      
+
     }
   }
 }

@@ -17,8 +17,6 @@ function Login() {
     if (currentUser?.token) navigate('/');
   }, []);
 
-  
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -61,7 +59,7 @@ function Login() {
           </tbody>
         </table>
       </form>
-      <p id='login-error-message'>{error}</p>
+      <p className='error-message'>{error}</p>
     </div>
   )
 }

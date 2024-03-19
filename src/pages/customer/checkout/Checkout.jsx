@@ -8,6 +8,7 @@ import { getCart } from '../../../utils/apis/CartAPIHandlers';
 function Checkout() {
 
   const [cart, setCart] = useState([]);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -35,9 +36,16 @@ function Checkout() {
   // Place order
   const handlePlaceOrder = async () => {
     console.log("place order clicked");
+
     const address = document.getElementById('checkout-address-details').value;
     const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
     const orderInfo = { address, paymentMethod };
+
+    if (!address) {
+      setError("Please enter your address");
+      return;
+    }
+
     console.log(orderInfo)
     try {
       const order = await createOrder(orderInfo);
@@ -92,6 +100,7 @@ function Checkout() {
           </div>
           <hr />
           <button id='checkout-place-order-btn' onClick={handlePlaceOrder} disabled={!(cart && cart.cartProducts && cart.cartProducts.length)}>Place Order</button>
+          <p className='error-message'>{error}</p>
         </div>
       </div>
     </div>

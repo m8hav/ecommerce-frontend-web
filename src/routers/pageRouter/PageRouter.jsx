@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import Login from '../../pages/common/login/Login'
 import Signup from '../../pages/customer/signup/Signup'
 import UserRouter from '../userRouters/UserRouter'
+import SearchListing from '../../pages/common/searchListing/SearchListing'
 
 function PageRouter() {
   return (
@@ -13,6 +14,7 @@ function PageRouter() {
       <Routes>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
+        <Route path="/products/search/:searchString" element={<SearchListing />} />
         <Route path="/*" element={<UserRouter />} />
       </Routes>
     </main>

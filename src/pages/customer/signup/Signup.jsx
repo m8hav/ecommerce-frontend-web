@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import "./Signup.scss"
 import { useNavigate } from 'react-router-dom';
 import { getUserDetails } from '../../../utils/AuthUtils';
-import { AuthContext } from '../../../contexts/AuthContext';
 import { signUp } from '../../../utils/apis/AuthAPIHandlers';
 
 function Signup() {
@@ -86,7 +85,7 @@ function Signup() {
           </tbody>
         </table>
       </form>
-      <p id='signup-error'>{error}</p>
+      <p className='error-message'>{error}</p>
     </div>
   )
 }

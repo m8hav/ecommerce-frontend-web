@@ -7,22 +7,29 @@
   padding: 0.25rem;
   margin: 0 1rem;
 
-  input {
-    border: none;
+  form {
+    display: flex;
+    align-items: center;
     width: 100%;
-    outline: none;
-    margin-left: 1rem;
-    padding-right: 0.5rem;
-    background-color: transparent;
+    
+    input {
+      border: none;
+      width: 100%;
+      outline: none;
+      margin-left: 1rem;
+      padding-right: 0.5rem;
+      background-color: transparent;
+    }
+  
+    button {
+      color: #000;
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
   }
 
-  button {
-    color: #000;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    border: none;
-    cursor: pointer;
-  }
 }
 
 #nav-search-container:hover {

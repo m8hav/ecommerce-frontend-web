@@ -7,12 +7,12 @@ function ProductCard({ pid, imageUrl, name, desc, price }) {
 
   const { currentUser } = useContext(AuthContext);
 
-  const navigate = useNavigate();
-
   return (
     <Link to={currentUser.role == "ADMIN" ? `/editProduct/${pid}` : `/product/${pid}`}>
       <div className='product-item'>
-        <img src={imageUrl} alt='product' />
+        <div className="product-card-img-container">
+          <img src={imageUrl} alt='product' />
+        </div>
         <p className='product-item-name'>{name}</p>
         <p className='product-item-desc'>{desc}</p>
         <span>

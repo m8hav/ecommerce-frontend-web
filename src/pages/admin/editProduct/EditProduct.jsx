@@ -90,7 +90,7 @@ function EditProduct() {
           </tr>
           <tr>
             <td>
-              <label htmlFor="stock">Image URL:</label>
+              <label htmlFor="stock">Stock:</label>
             </td>
             <td>
               <input type="number" id="stock" name="stock" value={stock} onChange={e => setStock(e.target.value)}/>

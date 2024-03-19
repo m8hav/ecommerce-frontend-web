@@ -18,6 +18,11 @@ function AddProduct() {
     const imageUrl = document.getElementById('imageUrl').value;
     const stock = document.getElementById('stock').value;
 
+    if (!name || !desc || !price || !imageUrl || !stock) {
+      setError("All fields are required");
+      return;
+    }
+
     console.log(name, desc, price, imageUrl, stock);
 
     const addProductAsync = async (product) => {
@@ -95,7 +100,7 @@ function AddProduct() {
           </tr>
         </tbody>
       </table>
-      <p>{error}</p>
+      <p className='error-message'>{error}</p>
     </div>
   )
 }

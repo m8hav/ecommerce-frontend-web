@@ -1,0 +1,21 @@
+#search-products {
+  margin-top: 2rem;
+
+  h1 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  div {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 0.75rem;
+  }
+}

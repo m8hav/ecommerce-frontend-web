@@ -33,6 +33,16 @@ export const getProduct = async (productId) => {
   }
 }
 
+export const getProductsBySearch = async (searchString) => {
+  try {
+    const response = await axios.get(API_BASE_URL + '/products/search/' + searchString, getRequestHeaders());
+    return response.data;
+  } catch (error) {
+    console.log('Error during API call', error);
+    throw error;
+  }
+}
+
 export const updateProduct = async (product) => {
   try {
     const response = await axios.put(API_BASE_URL + '/product', product, getRequestHeaders());

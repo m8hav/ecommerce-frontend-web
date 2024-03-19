@@ -77,7 +77,12 @@ function ProductLanding() {
                   <button onClick={goToCart}>Go to Cart</button>
                 </div>
                 :
-                <button onClick={addProductToCart}>Add to Cart</button>
+                <button onClick={addProductToCart}
+                  disabled={product?.stock == 0}>
+                    {
+                       product?.stock == 0 ? "Out of Stock" : "Add to Cart"
+                    }
+                </button>
             )
           }
         </div>

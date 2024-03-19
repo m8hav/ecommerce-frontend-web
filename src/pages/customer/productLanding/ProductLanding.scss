@@ -4,9 +4,12 @@
   border-radius: 1rem;
   justify-content: space-around;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  gap: 2rem;
+  flex-wrap: wrap;
 
   #left-portion {
     flex-basis: 40%;
+    min-width: 300px;
 
     #product-image-container {
       width: 100%;
@@ -16,7 +19,7 @@
       align-items: center;
       border-radius: 0.5rem;
       overflow: hidden;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
       img {
         width: 100%;
@@ -28,6 +31,7 @@
 
   #right-portion {
     flex-basis: 40%;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -81,6 +85,12 @@
 
         &:hover {
           background-color: #003366;
+        }
+
+        &:disabled {
+          background-color: #b8cbff;
+          color: white;
+          cursor: not-allowed;
         }
       }
     }
