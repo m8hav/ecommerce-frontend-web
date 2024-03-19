@@ -15,6 +15,7 @@ function Order() {
     const fetchOrder = async () => {
       try {
         const res = await getOrder(oid);
+        res.date = new Date(res.date).toDateString();
         setOrder(res);
       } catch (error) {
         console.log(error);
@@ -25,9 +26,9 @@ function Order() {
 
   return (
     <div id='order-container'>
-      <p id='order-heading'>Order</p>
+      <p id='order-heading'>Order #{order.id}</p>
       <div id="order-date">
-        <p>Order Date: {"2021-05-20"}</p>
+        <p>Order Date: {order.date}</p>
       </div>
       <div id="order-main">
         <div id='order-items-container'>

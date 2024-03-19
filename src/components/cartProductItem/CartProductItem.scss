@@ -84,6 +84,12 @@
           background-color: #e0e0e0;
           color: #0044aa;
         }
+
+        &:disabled {
+          background-color: #f0f0f0;
+          color: #c0c0c0;
+          cursor: not-allowed;
+        }
       }
 
       .cart-product-item-qty {
@@ -104,7 +110,6 @@
       transition: all 0.3s ease-in-out;
 
       &:hover {
-        // dark red background on hover
         background-color: #e03030;
       }
     }

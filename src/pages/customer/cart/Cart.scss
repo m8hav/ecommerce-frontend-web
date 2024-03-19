@@ -1,4 +1,6 @@
 #cart-container {
+  max-width: 100%;
+  
   #cart-heading {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -34,6 +36,7 @@
 
     #cart-right-portion {
       max-width: 400px;
+      min-width: 300px;
       position: sticky;
       top: 0;
       right: 0;

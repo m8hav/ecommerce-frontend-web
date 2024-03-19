@@ -12,7 +12,7 @@ function Orders() {
       try {
         // Fetch orders from server
         const res = await getAllOrders();
-        setOrders(res);
+        setOrders(res.reverse());
       } catch (error) {
         console.log(error);
       }
@@ -26,7 +26,7 @@ function Orders() {
       <div id="orders-page-main">
         {
           orders.map((order, index) =>
-            <OrdersOrderItem key={index} oNo={index + 1} order={order} />
+            <OrdersOrderItem key={index} order={order} />
           )
         }
       </div>

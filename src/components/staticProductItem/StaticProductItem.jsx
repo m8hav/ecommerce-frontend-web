@@ -23,7 +23,7 @@ function StaticProductItem({ product, linkToProduct }) {
   )
   if (linkToProduct) {
     return (
-      <Link to={`/product/${product.productId}`}>
+      <Link className='static-product-item-link' to={`/product/${product.productId}`}>
         {innerContent}
       </Link>
     )

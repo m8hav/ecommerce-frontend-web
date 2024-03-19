@@ -2,8 +2,19 @@ import React, { useEffect, useState } from 'react'
 import "./CartProductItem.scss"
 import { Link } from 'react-router-dom';
 import { removeFromCart, updateProductQuantityInCart } from '../../utils/apis/CartAPIHandlers';
+import { getProduct } from '../../utils/apis/ProductAPIHandlers';
 
 function CartProductItem({ cartProduct, updateCart }) {
+
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const res = await getProduct(cartProduct.productId);
+      setProduct(res);
+    }
+    fetchProduct();
+  }, [])
 
   const increaseQuantity = async () => {
     console.log('increasing quantity')
@@ -54,7 +65,7 @@ function CartProductItem({ cartProduct, updateCart }) {
         <div className="cart-product-item-qty-btns">
           <button className='cart-product-item-qty-btn' onClick={decreaseQuantity}>-</button>
           <p className='cart-product-item-qty'>{cartProduct?.quantity}</p>
-          <button className='cart-product-item-qty-btn' onClick={increaseQuantity}>+</button>
+          <button className='cart-product-item-qty-btn' onClick={increaseQuantity} disabled={product.stock == cartProduct.quantity}>+</button>
         </div>
         <button className='cart-product-item-remove-btn' onClick={removeProduct}>
           <i className="fa-solid fa-trash"></i>

@@ -1,15 +1,19 @@
+.static-product-item-link {
+  width: 100%;
+}
+
 .static-product-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border: 1px solid #e0e0e0;
-  border-radius: 5px;
+  border-radius: 0.25rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  background-color: #fff;
   width: 100%;
+  flex-basis: 100%;
 
   .static-product-item-info {
     display: flex;
