@@ -12,15 +12,6 @@ export const signUp = async (user) => {
     throw error;
   }
 }
-// Auth Handlers
-// export const signUp = async (user) => {
-//   try {
-//     return await axios.post(API_BASE_URL + '/signup', user, getRequestHeaders());
-//   } catch (error) {
-//     console.log('Error during API call', error);
-//     throw error;
-//   }
-// }
 
 export const logIn = async (credentials) => {
   try {

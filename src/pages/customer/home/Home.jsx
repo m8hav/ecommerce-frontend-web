@@ -24,7 +24,7 @@ function Home() {
         <h1 id='home-popular-products-heading'>Popular Products</h1>
         <div>
           {
-            products.map((product, index) =>
+            products?.map((product, index) =>
               <ProductCard
                 imageUrl={product.imageUrl}
                 key={index}

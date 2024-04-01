@@ -26,7 +26,7 @@ function AdminHome() {
       </Link>
       <div>
           {
-            products.map((product, index) =>
+            products?.map((product, index) =>
               <ProductCard
                 imageUrl={product.imageUrl}
                 key={index}

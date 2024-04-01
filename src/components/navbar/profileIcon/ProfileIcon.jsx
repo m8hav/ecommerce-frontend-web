@@ -22,8 +22,7 @@ function ProfileIcon() {
   return (
     <Link to={"/profile"}>
       <div id="nav-profile-container">
-        {/* <img src="https://picsum.photos/50" alt="Profile" /> */}
-        <button id='nav-profile-button'>{currentUser?.name[0].toUpperCase()}</button>
+        <button id='nav-profile-button'>{currentUser?.name && currentUser.name[0]?.toUpperCase()}</button>
         <p>Profile</p>
       </div>
     </Link>

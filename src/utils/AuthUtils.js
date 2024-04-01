@@ -18,7 +18,8 @@ export function removeUserDetails() {
 // Function to get headers for API calls
 export const getRequestHeaders = () => {
   const headers = {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "69420"
   }
   if (getUserDetails()?.token && getUserDetails().token !== "")
     headers["Authorization"] = "Bearer " + getUserDetails().token;

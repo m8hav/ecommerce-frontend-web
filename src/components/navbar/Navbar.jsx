@@ -17,11 +17,11 @@ function Navbar() {
           <img src="/logos/maf_carrefour_logo.png" alt="maf_carrefour_logo" />
         </div>
       </Link>
-      <SearchBar />
       {
         currentUser == null
           ? <LoginSignupButtons />
           : <>
+            <SearchBar />
             <ProfileIcon />
             {
               currentUser.role == "USER" &&

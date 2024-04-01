@@ -12,7 +12,7 @@ function Orders() {
       try {
         // Fetch orders from server
         const res = await getAllOrders();
-        setOrders(res.reverse());
+        setOrders(res);
       } catch (error) {
         console.log(error);
       }
